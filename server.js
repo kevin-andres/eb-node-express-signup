@@ -51,6 +51,11 @@ app.post('/signup', function(req, res) {
   signup(nameField, emailField, previewBool);
 });
 
+app.get('/helloworld', function(req,res) {
+  res.send(200);
+  alert("You are visting hello world!")
+});
+
 //Add signup form data to database.
 var signup = function (nameSubmitted, emailSubmitted, previewPreference) {
   var formData = {

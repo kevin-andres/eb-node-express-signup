@@ -35,9 +35,9 @@ var config = fs.readFileSync('./app_config.json', 'utf8');
 config = JSON.parse(config);
 
 //Create DynamoDB client and pass in region.
-var db = new AWS.DynamoDB({region: config.AWS_REGION});
+var db = new AWS.DynamoDB({region: 'us-west-2'});
 //Create SNS client and pass in region.
-var sns = new AWS.SNS({ region: config.AWS_REGION});
+var sns = new AWS.SNS({ region: 'us-west-2'});
 
 //GET home page.
 app.get('/', routes.index);
@@ -59,7 +59,7 @@ app.get('/helloworld', function(req,res) {
 //Add signup form data to database.
 var signup = function (nameSubmitted, emailSubmitted, previewPreference) {
   var formData = {
-    TableName: config.STARTUP_SIGNUP_TABLE,
+    TableName: 'signup-table',
     Item: {
       email: {'S': emailSubmitted}, 
       name: {'S': nameSubmitted},
@@ -73,7 +73,7 @@ var signup = function (nameSubmitted, emailSubmitted, previewPreference) {
       console.log('Form data added to database.');
       var snsMessage = 'New signup: %EMAIL%'; //Send SNS notification containing email from form.
       snsMessage = snsMessage.replace('%EMAIL%', formData.Item.email['S']);
-      sns.publish({ TopicArn: config.NEW_SIGNUP_TOPIC, Message: snsMessage }, function(err, data) {
+      sns.publish({ TopicArn: 'arn:aws:sns:us-west-2:247845050016:signup-notifications', Message: snsMessage }, function(err, data) {
         if (err) {
           console.log('Error publishing SNS message: ' + err);
         } else {

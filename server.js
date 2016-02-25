@@ -43,7 +43,7 @@ var sns = new AWS.SNS({ region: config.AWS_REGION});
 app.get('/', routes.index);
 
 //POST signup form.
-app.post('/signup', function(req, res) {
+app.post('/signup_fail', function(req, res) {
   var nameField = req.body.name,
       emailField = req.body.email,
       previewBool = req.body.previewAccess;

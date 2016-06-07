@@ -18,6 +18,7 @@ var path = require('path');
 var fs = require('fs');
 var AWS = require('aws-sdk');
 var app = express();
+const PORT = 8080;
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
@@ -84,6 +85,6 @@ var signup = function (nameSubmitted, emailSubmitted, previewPreference) {
   });
 };
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(PORT, function(){
+  console.log('Express server listening on port ' + PORT);
 });
